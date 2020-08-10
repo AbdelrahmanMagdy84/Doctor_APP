@@ -65,9 +65,12 @@ class _BloodGlucoseScreenState extends State<BloodGlucoseScreen> {
                 ));
                 break;
               case ConnectionState.done:
-                if (glucoseList == null)
-                  return Center(child: Text('empty'));
-                else {
+                if (glucoseList == null) {
+                  return Center(
+                    child: Text("Empty Press + to add"),
+                  );
+                } else {
+                  glucoseList = glucoseList.reversed.toList();
                   return ListView.builder(
                     itemBuilder: (ctx, index) {
                       return GlucoseItem(glucoseList[index]);
@@ -75,7 +78,6 @@ class _BloodGlucoseScreenState extends State<BloodGlucoseScreen> {
                     itemCount: glucoseList.length,
                   );
                 }
-
                 break;
             }
           },
