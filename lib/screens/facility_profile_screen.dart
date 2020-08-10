@@ -1,7 +1,7 @@
 
 import 'package:doctor_app/models/MedicalFacility.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 
 class FacilityProfileScreen extends StatefulWidget {
   static final String routeName = "facility profile route name";

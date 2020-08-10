@@ -9,8 +9,7 @@ import '../drawer/main_drawer.dart';
 import 'package:flutter/material.dart';
 
 class PatientProfileScreen extends StatefulWidget {
-  static const routeName = 'categories_screen';
-
+  static const routeName = 'patient_profile';
   @override
   _PatientProfileScreenState createState() => _PatientProfileScreenState();
 }
@@ -18,6 +17,13 @@ class PatientProfileScreen extends StatefulWidget {
 class _PatientProfileScreenState extends State<PatientProfileScreen> {
   Patient patient;
   Future userFuture;
+  // @override
+  // didChangeDependencies() {
+  //   final routeArgs =
+  //       ModalRoute.of(context).settings.arguments as Map<String, Object>;
+  //   patient = routeArgs['patient'];
+  //   super.didChangeDependencies();
+  // }
 
   @override
   void initState() {

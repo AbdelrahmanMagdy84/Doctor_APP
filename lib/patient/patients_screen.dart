@@ -1,5 +1,6 @@
 import 'package:doctor_app/drawer/main_drawer.dart';
 import 'package:doctor_app/models/patient.dart';
+import 'package:doctor_app/patient/patient_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class FacilityScreen extends StatefulWidget {
@@ -42,7 +43,7 @@ class _FacilityScreenState extends State<FacilityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Facilities"),
+        title: Text("Patients"),
       ),
       drawer: MainDrawer(),
       body: Container(
@@ -64,7 +65,7 @@ class _FacilityScreenState extends State<FacilityScreen> {
                   break;
                 case ConnectionState.done:
                   return facilityList == null
-                      ? Center(child: Text("no facilities"))
+                      ? Center(child: Text("no patients"))
                       : ListView.builder(
                           itemBuilder: (ctx, index) {
                             // return item(
@@ -84,10 +85,7 @@ class _FacilityScreenState extends State<FacilityScreen> {
       ),
     );
   }
-
-  
 }
-
 
 Widget item(
     String name, String username, Patient patient, BuildContext context) {
@@ -95,9 +93,10 @@ Widget item(
     builder: (context, constraints) {
       return GestureDetector(
         onTap: () {
-          print(FacilityScreen.routeName);
-          // Navigator.of(context).pushNamed(FacilityProfileScreen.routeName,
-          //     arguments: {'facility': myfacility});
+          Navigator.of(context).pushNamed(
+            PatientProfileScreen.routeName,
+            arguments: {"patient": patient},
+          );
         },
         child: Container(
             padding: EdgeInsets.symmetric(vertical: 10),

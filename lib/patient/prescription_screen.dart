@@ -30,9 +30,10 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
       });
       userFuture = APIClient()
           .getMedicalRecordService()
-          .getMedicalRecords(_patientToken)
+          .getMedicalRecords(_patientToken, "Prescription")
           .then((MedicalRecordsResponse responseList) {
         if (responseList.success) {
+          print(responseList.medicalRecord);
           medicalRecords = responseList.medicalRecord;
         }
       });
@@ -43,7 +44,7 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Prescription")),
-      body:  Container(
+      body: Container(
         child: FutureBuilder(
           future: userFuture,
           builder: (ctx, snapshot) {
@@ -60,17 +61,25 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                 ));
                 break;
               case ConnectionState.done:
-                return ListView.builder(
-                  itemBuilder: (ctx, index) {
-                    return MedicalRecordItem(medicalRecords[index]);
-                  },
-                  itemCount: medicalRecords.length,
-                );
+                if (medicalRecords == null) {
+                  return Center(
+                    child: Text("Empty"),
+                  );
+                } else {
+                  medicalRecords = medicalRecords.reversed.toList();
+                  return ListView.builder(
+                    itemBuilder: (ctx, index) {
+                      return MedicalRecordItem(medicalRecords[index]);
+                    },
+                    itemCount: medicalRecords.length,
+                  );
+                }
                 break;
             }
           },
         ),
       ),
+ 
     );
   }
 
