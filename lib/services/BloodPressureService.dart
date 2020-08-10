@@ -15,9 +15,9 @@ class BloodPressureService {
   BloodPressureService._getInstance();
 
   Future<BloodPressureResponseList> getBloodPressureMeasure(
-      String token) async {
+      String patientId, String token) async {
     final http.Response response = await http.get(
-        "${APIClient.baseUrl}/$endPoint",
+        "${APIClient.baseUrl}/$endPoint/?patientId=$patientId",
         headers: {"Content-Type": "application/json", "authorization": token});
     if (response.statusCode == 200) {
       return BloodPressureResponseList.fromJson(jsonDecode(response.body));

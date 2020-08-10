@@ -90,7 +90,7 @@ class DoctorService {
     }
   }
 
-  Future<DoctorResponse> getPatient(String token) async {
+  Future<DoctorResponse> getDoctor(String token) async {
     final http.Response response = await http
         .get("${APIClient.baseUrl}/$endPoint", headers: {
       HttpHeaders.contentTypeHeader: "application/json",

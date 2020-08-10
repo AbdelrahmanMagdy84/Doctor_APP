@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 class MedicalRecordItem extends StatefulWidget {
   final MedicalRecord medicalRecord;
   MedicalRecordItem(this.medicalRecord);

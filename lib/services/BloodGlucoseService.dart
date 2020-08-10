@@ -14,9 +14,10 @@ class BloodGlucoseService {
   }
   BloodGlucoseService._getInstance();
 
-  Future<BloodGlucoseResponseList> getBloodGlucoseMeasure(String token) async {
+  Future<BloodGlucoseResponseList> getBloodGlucoseMeasure(
+      String patientId, String token) async {
     final http.Response response = await http.get(
-        "${APIClient.baseUrl}/$endPoint",
+        "${APIClient.baseUrl}/$endPoint/?patientId=$patientId",
         headers: {"Content-Type": "application/json", "authorization": token});
     if (response.statusCode == 200) {
       return BloodGlucoseResponseList.fromJson(jsonDecode(response.body));

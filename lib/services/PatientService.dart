@@ -14,9 +14,9 @@ class PatientService {
 
   PatientService._getInstance();
 
-  Future<PatientResponse> getPatient(String token) async {
+  Future<PatientResponse> getPatient(String patientId, String token) async {
     final http.Response response = await http
-        .get("${APIClient.baseUrl}/$endPoint", headers: {
+        .get("${APIClient.baseUrl}/$endPoint/?patientId=$patientId", headers: {
       HttpHeaders.contentTypeHeader: "application/json",
       "authorization": token
     });
