@@ -3,11 +3,9 @@ import 'dart:typed_data';
 
 import 'package:doctor_app/models/MedicalRecord.dart';
 import 'package:doctor_app/screens/show_image_screen.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 
 class MedicalRecordItem extends StatefulWidget {
   final MedicalRecord medicalRecord;
@@ -22,13 +20,15 @@ class _MedicalRecordItemState extends State<MedicalRecordItem> {
 
   @override
   Widget build(BuildContext context) {
-    final MedicalRecord newMedicalRecord= widget.medicalRecord;
+    final MedicalRecord newMedicalRecord = widget.medicalRecord;
     String image =
         'https://shop.esys.eu/media/image/6f/8f/af/amlog_transport-berwachung.jpg';
-    String facility =newMedicalRecord.medicalFacility.name;
+    String facility = newMedicalRecord.medicalFacility.name;
     String title = newMedicalRecord.title;
-    String doctor ="${newMedicalRecord.doctor.firstName} ${newMedicalRecord.doctor.lastName}";
-    String clerk = "${newMedicalRecord.clerk.firstName} ${newMedicalRecord.clerk.lastName}";
+    String doctor =
+        "${newMedicalRecord.doctor.firstName} ${newMedicalRecord.doctor.lastName}";
+    String clerk =
+        "${newMedicalRecord.clerk.firstName} ${newMedicalRecord.clerk.lastName}";
     String note = newMedicalRecord.note;
     DateTime date = newMedicalRecord.date;
 
@@ -120,10 +120,6 @@ class _MedicalRecordItemState extends State<MedicalRecordItem> {
                                   Uint8List bytes =
                                       await consolidateHttpClientResponseBytes(
                                           response);
-                                  await Share.file(
-                                      '$title', 'amlog.jpg', bytes, 'image/jpg',
-                                      text:
-                                          " Title: $title\n Doctor: $doctor\n Clerk: $clerk\n Note: $note\n");
                                 }
                           // widget.delete(widget.transaction.id),
                           );

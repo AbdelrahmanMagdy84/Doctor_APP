@@ -47,19 +47,6 @@ class MedicalRecord {
       medicalFacility: json['medicalFacility'].fromJson(),
     );
   }
-
-  Map<String, dynamic> toJson() {
-    //for post requests
-    return {
-      "title": this.title,
-      "note": this.note,
-      "enteredBy": this.enteredBy,
-      "date": this.date.toIso8601String(),
-      "report": this.report.toJson(),
-      "radiograph": this.radiograph.toJson(),
-      "prescriptionImage": this.prescription.toJson()
-    };
-  }
 }
 
 class MedicalFile {
@@ -72,12 +59,5 @@ class MedicalFile {
       url: json["url"],
       fileName: json["fileName"],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "url": this.url,
-      "fileName": this.fileName,
-    };
   }
 }

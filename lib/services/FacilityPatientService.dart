@@ -4,7 +4,7 @@ import 'dart:core';
 
 import 'APIClient.dart';
 import '../models/Responses/MedicalFacilitiesResponse.dart';
-import '../models/Responses/DoctorsResponse.dart';
+import '../models/Responses/PatientsResponse.dart';
 
 class FacilityPatientService {
   static final String endPoint = "api/v1/facilities-patients";
@@ -28,13 +28,13 @@ class FacilityPatientService {
     }
   }
 
-  Future<DoctorsResponse> getDoctors(String token) async {
+  Future<PatientsResponse> getPatients(String token) async {
     final http.Response response = await http.get(
-        "${APIClient.baseUrl}/$endPoint/doctor",
+        "${APIClient.baseUrl}/$endPoint/patient",
         headers: {"Content-Type": "application/json", "authorization": token});
     if (response.statusCode == 200) {
       //print(jsonDecode(response.body));
-      return DoctorsResponse.fromJson(jsonDecode(response.body));
+      return PatientsResponse.fromJson(jsonDecode(response.body));
     } else {
       throw Exception("Failed to fetch data");
     }

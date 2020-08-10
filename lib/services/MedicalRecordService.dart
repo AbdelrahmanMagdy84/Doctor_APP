@@ -26,19 +26,4 @@ class MedicalRecordService {
       throw Exception("Failed to fetch data");
     }
   }
-
-  Future<MedicalRecordResponse> addMedicalRecords(
-      MedicalRecord medicalRecord, String token) async {
-    print(token);
-    final http.Response response = await http.post(
-        "${APIClient.baseUrl}/$endPoint",
-        headers: {"Content-Type": "application/json", "authorization": token},
-        body: jsonEncode(medicalRecord.toJson()));
-    print(jsonDecode(response.body));
-    if (response.statusCode == 200) {
-      return MedicalRecordResponse.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception("Failed to post data");
-    }
-  }
 }
