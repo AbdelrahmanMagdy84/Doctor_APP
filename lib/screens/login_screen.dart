@@ -1,12 +1,10 @@
 import 'package:doctor_app/dialog/DialogManager.dart';
-import 'package:doctor_app/models/Responses/PatientResponse.dart';
-import 'package:doctor_app/patient/patient_profile_screen.dart';
+import 'package:doctor_app/models/Responses/DoctorResponse.dart';
 import 'package:doctor_app/screens/home_screen.dart';
 import 'package:doctor_app/services/APIClient.dart';
 import 'package:doctor_app/utils/TokenStorage.dart';
 import '../screens/register_screen.dart';
 import 'package:flutter/material.dart';
-
 
 class LoginScreen extends StatefulWidget {
   static const routeName = 'login_register';
@@ -36,15 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() {
     DialogManager.showLoadingDialog(context);
     APIClient()
-        .getPatientService()
+        .getDoctorService()
         .login(_usernameController.text, _passwordController.text)
-        .then((PatientResponse patientResponse) {
-      if (patientResponse.success) {
+        .then((DoctorResponse doctorResponse) {
+      if (doctorResponse.success) {
         print("User Logged in!");
         DialogManager.stopLoadingDialog(context);
-        TokenStorage().saveUserToken(patientResponse.token).then((_) {
-          Navigator.of(context)
-              .pushReplacementNamed(HomeScreen.routeName);
+        TokenStorage().saveUserToken(doctorResponse.token).then((_) {
+          Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
         });
       }
     }).catchError((Object e) {

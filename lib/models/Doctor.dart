@@ -2,6 +2,7 @@ class Doctor {
   String id;
   String firstName;
   String lastName;
+  String password;
   String email;
   String username;
   String bio;
@@ -15,6 +16,7 @@ class Doctor {
       {this.id,
       this.firstName,
       this.lastName,
+      this.password,
       this.email,
       this.username,
       this.address,
@@ -37,5 +39,20 @@ class Doctor {
         birthDate: DateTime.parse(json["birthDate"]),
         gender: json["gender"],
         specialization: json["specialization"]);
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      "password": this.password,
+      "email": this.email,
+      "username": this.username,
+      "firstName": this.firstName,
+      "lastName": this.lastName,
+      "mobile": this.mobile,
+      "gender": this.gender,
+      "birthDate": this.birthDate.toIso8601String(),
+      "specialization": this.specialization,
+      "address": this.address,
+      "bio": this.bio
+    };
   }
 }

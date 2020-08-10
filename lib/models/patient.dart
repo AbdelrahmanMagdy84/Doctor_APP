@@ -69,21 +69,4 @@ class Patient {
           : DateTime.now(),
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "password": this.password,
-      "email": this.email,
-      "username": this.username,
-      "firstName": this.firstName,
-      "lastName": this.lastName,
-      "mobile": this.mobile,
-      "gender": this.gender,
-      "birthDate": this.birthDate.toIso8601String(),
-      "medications": this.medications,
-      "bloodType": this.bloodType,
-      "allergies": this.allergies,
-      "conditions": this.conditions,
-    };
-  }
 }

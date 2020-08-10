@@ -17,15 +17,4 @@ class BloodPressure {
           json['date'] != null ? DateTime.parse(json['date']) : DateTime.now(),
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "value": {
-        "diastolic": this.upper,
-        "systolic": this.lower,
-      },
-      "note": this.note,
-      "date": this.date.toIso8601String()
-    };
-  }
 }

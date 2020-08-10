@@ -56,17 +56,6 @@ class MedicalRecord {
           : null,
     );
   }
-
-  Map<String, dynamic> toJson(String field) {
-    //for post requests
-    return {
-      "title": this.title,
-      "note": this.note,
-      "enteredBy": this.enteredBy,
-      "date": this.date.toIso8601String(),
-      field: this.filePath
-    };
-  }
 }
 
 class MedicalFile {
@@ -79,12 +68,5 @@ class MedicalFile {
       url: json["url"],
       fileName: json["fileName"],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "url": this.url,
-      "fileName": this.fileName,
-    };
   }
 }

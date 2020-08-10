@@ -6,8 +6,8 @@ import 'package:doctor_app/screens/show_image_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 class MedicalRecordItem extends StatefulWidget {
   final MedicalRecord medicalRecord;
   MedicalRecordItem(this.medicalRecord);
@@ -22,6 +22,7 @@ class _MedicalRecordItemState extends State<MedicalRecordItem> {
   @override
   Widget build(BuildContext context) {
     final MedicalRecord newMedicalRecord = widget.medicalRecord;
+
     String facility;
     String doctor;
     String clerk;
@@ -137,10 +138,6 @@ class _MedicalRecordItemState extends State<MedicalRecordItem> {
                                   Uint8List bytes =
                                       await consolidateHttpClientResponseBytes(
                                           response);
-                                  await Share.file(
-                                      '$title', 'amlog.jpg', bytes, 'image/jpg',
-                                      text:
-                                          " Title: $title\n Doctor: $doctor\n Clerk: $clerk\n Note: $note\n");
                                 }
                           // widget.delete(widget.transaction.id),
                           );

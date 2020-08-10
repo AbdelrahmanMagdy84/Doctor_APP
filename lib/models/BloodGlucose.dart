@@ -21,13 +21,4 @@ class BloodGlucose {
           json['date'] != null ? DateTime.parse(json['date']) : DateTime.now(),
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "value": this.value,
-      "type": this.timeType.toString().split('.').last, //enum to string
-      "note": this.note,
-      "date": this.date.toIso8601String(),
-    };
-  }
 }
