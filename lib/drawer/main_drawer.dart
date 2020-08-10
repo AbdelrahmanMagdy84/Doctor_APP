@@ -1,7 +1,7 @@
 import 'package:doctor_app/drawer/edit_doctor_info_screen.dart';
-import 'package:doctor_app/models/Responses/PatientResponse.dart';
-import 'package:doctor_app/models/Patient.dart';
-import 'package:doctor_app/patient/patient_profile_screen.dart';
+import 'package:doctor_app/models/Doctor.dart';
+import 'package:doctor_app/models/Responses/DoctorResponse.dart';
+
 import 'package:doctor_app/screens/home_screen.dart';
 import 'package:doctor_app/services/APIClient.dart';
 import 'package:doctor_app/utils/TokenStorage.dart';
@@ -17,7 +17,7 @@ class MainDrawer extends StatefulWidget {
 class _MainDrawerState extends State<MainDrawer> {
 
 
-  Patient patient;
+  Doctor doctor;
   Future userFuture;
 
   @override
@@ -34,12 +34,12 @@ class _MainDrawerState extends State<MainDrawer> {
         _patientToken = value;
       });
       userFuture = APIClient()
-          .getPatientService()
-          .getPatient(_patientToken)
-          .then((PatientResponse response) {
+          .getDoctorService()
+          .getDoctor(_patientToken)
+          .then((DoctorResponse response) {
         if (response.success) {
           //  DialogManager.stopLoadingDialog(context);
-          patient = response.patient;
+          doctor = response.doctor;
         }
       });
     });
@@ -92,27 +92,27 @@ class _MainDrawerState extends State<MainDrawer> {
                                       margin:
                                           EdgeInsets.only(top: 15, left: 15),
                                       child: buildMyText(context, "Name",
-                                          "DR.${patient.firstName} ${patient.lastName}")),
+                                          "DR.${doctor.firstName} ${doctor.lastName}")),
                                 ),
                                 Divider(),
                                 Container(
                                     margin: EdgeInsets.only(left: 15),
                                     alignment: Alignment.centerLeft,
                                     child: buildMyText(
-                                        context, "Username", patient.username)),
+                                        context, "Username", doctor.username)),
                                 Divider(),
                                 Container(
                                     margin: EdgeInsets.only(left: 15),
                                     alignment: Alignment.centerLeft,
                                     child: buildMyText(context, "Birth Date",
-                                        "${DateFormat.yMd().format(patient.birthDate)}")),
+                                        "${DateFormat.yMd().format(doctor.birthDate)}")),
                                 Divider(),
                                 Container(
                                     margin:
                                         EdgeInsets.only(left: 15, bottom: 15),
                                     alignment: Alignment.centerLeft,
-                                    child: buildMyText(context, "Blood Type",
-                                        patient.bloodType)),
+                                    child: buildMyText(context, "specialization",
+                                        doctor.specialization)),
                               ],
                             ),
                           ),
@@ -135,7 +135,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 Navigator.pushNamedAndRemoveUntil(
                     context, HomeScreen.routeName, (r) => false);
                 Navigator.pushNamed(context, EditPatientInfo.routeName,
-                    arguments: {'information': patient});
+                    arguments: {'information': doctor});
               }),
               Container(
                 color: Theme.of(context).accentColor,

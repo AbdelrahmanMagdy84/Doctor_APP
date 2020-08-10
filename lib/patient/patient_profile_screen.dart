@@ -17,13 +17,13 @@ class PatientProfileScreen extends StatefulWidget {
 class _PatientProfileScreenState extends State<PatientProfileScreen> {
   Patient patient;
   Future userFuture;
-  // @override
-  // didChangeDependencies() {
-  //   final routeArgs =
-  //       ModalRoute.of(context).settings.arguments as Map<String, Object>;
-  //   patient = routeArgs['patient'];
-  //   super.didChangeDependencies();
-  // }
+  @override
+  didChangeDependencies() {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, Object>;
+    patient = routeArgs['patient'];
+    super.didChangeDependencies();
+  }
 
   @override
   void initState() {
@@ -32,15 +32,15 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
     getUserToken();
   }
 
-  String _patientToken;
+  String _doctorToken;
   void getUserToken() {
     TokenStorage().getUserToken().then((value) async {
       setState(() {
-        _patientToken = value;
+        _doctorToken = value;
       });
       userFuture = APIClient()
           .getPatientService()
-          .getPatient(_patientToken)
+          .getPatient(patient.pid,_doctorToken)
           .then((PatientResponse response) {
         if (response.success) {
           //  DialogManager.stopLoadingDialog(context);

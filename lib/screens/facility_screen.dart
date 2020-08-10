@@ -21,20 +21,22 @@ class _FacilityScreenState extends State<FacilityScreen> {
   List<MedicalFacility> facilityList;
   Future userFuture;
   @override
-  didChangeDependencies() {
+  void initState() {
+    super.initState();
+    print("getting user token");
     getUserToken();
-    super.didChangeDependencies();
   }
 
-  String _patientToken;
+
+  String _doctorToken;
   void getUserToken() {
     TokenStorage().getUserToken().then((value) async {
       setState(() {
-        _patientToken = value;
+        _doctorToken = value;
       });
       userFuture = APIClient()
           .getFacilityPatientService()
-          .getMedicalFacilities(_patientToken)
+          .getMedicalFacilities(_doctorToken)
           .then((MedicalFacilitiesResponse responseList) {
         if (responseList.success) {
           facilityList = responseList.medicalFacilities;

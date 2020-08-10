@@ -2,6 +2,7 @@
 import 'package:doctor_app/items/medical_record_item.dart';
 import 'package:doctor_app/models/MedicalRecord.dart';
 import 'package:doctor_app/models/Responses/MedicalRecordsResponse.dart';
+import 'package:doctor_app/models/Patient.dart';
 import 'package:doctor_app/services/APIClient.dart';
 import 'package:doctor_app/utils/TokenStorage.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,15 @@ class PrescriptionScreen extends StatefulWidget {
 class _PrescriptionScreenState extends State<PrescriptionScreen> {
   Future userFuture;
   List<MedicalRecord> medicalRecords;
+  Patient patient;
+   @override
+  didChangeDependencies() {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, Object>;
+    patient = routeArgs['patient'];
+    super.didChangeDependencies();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -22,15 +32,15 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
     getUserToken();
   }
 
-  String _patientToken;
+  String _doctorToken;
   void getUserToken() {
     TokenStorage().getUserToken().then((value) async {
       setState(() {
-        _patientToken = value;
+        _doctorToken = value;
       });
       userFuture = APIClient()
           .getMedicalRecordService()
-          .getMedicalRecords(_patientToken, "Prescription")
+          .getMedicalRecords(_doctorToken,patient.pid, "Prescription")
           .then((MedicalRecordsResponse responseList) {
         if (responseList.success) {
           print(responseList.medicalRecord);

@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'APIClient.dart';
 import 'package:http/http.dart' as http;
-
-import '../models/MedicalRecord.dart';
-import '../models/Responses/MedicalRecordResponse.dart';
 import '../models/Responses/MedicalRecordsResponse.dart';
 
 class MedicalRecordService {
@@ -17,9 +14,9 @@ class MedicalRecordService {
   MedicalRecordService._getInstance();
 
   Future<MedicalRecordsResponse> getMedicalRecords(
-      String token, String type) async {
+      String token, String pid, String type) async {
     final http.Response response = await http.get(
-        "${APIClient.baseUrl}/$endPoint/?type=$type",
+        "${APIClient.baseUrl}/$endPoint/?type=$type&patient=$pid",
         headers: {"Content-Type": "application/json", "authorization": token});
     print(jsonDecode(response.body));
     if (response.statusCode == 200) {

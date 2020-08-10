@@ -1,6 +1,7 @@
 import 'package:doctor_app/patient/allergies_screen.dart';
 import 'package:doctor_app/patient/condtions_screen.dart';
 import 'package:doctor_app/drawer/edit_doctor_info_screen.dart';
+import 'package:doctor_app/patient/patients_screen.dart';
 import 'package:doctor_app/screens/facility_screen.dart';
 import 'package:doctor_app/patient/blood_pressure_screen.dart';
 import 'package:doctor_app/patient/patient_profile_screen.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         MedicationsScreen.routeName: (ctx) => MedicationsScreen(),
         ClerkProfileScreen.routeName: (ctx) => ClerkProfileScreen(),
         FacilityProfileScreen.routeName: (ctx) => FacilityProfileScreen(),
+        PatientsScreen.routeName:(ctx)=>PatientsScreen(),
       },
     );
   }

@@ -6,7 +6,7 @@ class Doctor {
   String email;
   String username;
   String bio;
-  String address;
+ 
   String mobile;
   DateTime birthDate;
   String gender;
@@ -19,7 +19,7 @@ class Doctor {
       this.password,
       this.email,
       this.username,
-      this.address,
+      
       this.bio,
       this.mobile,
       this.birthDate,
@@ -33,7 +33,7 @@ class Doctor {
         lastName: json["lastName"],
         email: json["email"],
         username: json["username"],
-        address: json["address"],
+        
         mobile: json["mobile"],
         bio: json["bio"],
         birthDate: DateTime.parse(json["birthDate"]),
@@ -51,7 +51,7 @@ class Doctor {
       "gender": this.gender,
       "birthDate": this.birthDate.toIso8601String(),
       "specialization": this.specialization,
-      "address": this.address,
+
       "bio": this.bio
     };
   }

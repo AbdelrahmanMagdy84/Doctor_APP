@@ -1,3 +1,4 @@
+import 'package:doctor_app/patient/patients_screen.dart';
 import 'package:doctor_app/screens/facility_screen.dart';
 import 'package:doctor_app/patient/patient_profile_screen.dart';
 import '../drawer/main_drawer.dart';
@@ -98,7 +99,7 @@ void selectCategory(BuildContext ctx, int id) {
       Navigator.of(ctx).pushNamed(FacilityScreen.routeName);
       break;
     case 2:
-      Navigator.of(ctx).pushNamed(PatientProfileScreen.routeName);
+      Navigator.of(ctx).pushNamed(PatientsScreen.routeName);
       break;
   }
 }

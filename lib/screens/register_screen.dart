@@ -1,4 +1,6 @@
 import 'package:doctor_app/dialog/DialogManager.dart';
+import 'package:doctor_app/models/Doctor.dart';
+import 'package:doctor_app/models/Responses/DoctorResponse.dart';
 import 'package:doctor_app/models/Responses/PatientResponse.dart';
 import 'package:doctor_app/services/APIClient.dart';
 import 'package:flutter_datetime_formfield/flutter_datetime_formfield.dart';
@@ -27,7 +29,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
+  final bioController = TextEditingController();
+  final addressController = TextEditingController();
+  final specializationController = TextEditingController();
   DateTime _dateOfBirth;
   String gender;
 
@@ -71,27 +75,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void register(var formkey) {
     DialogManager.showLoadingDialog(context);
     if (formkey.currentState.validate()) {
-      print("signing up");
+      print("signing up----------------------------------------------------------");
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-        Patient patient = new Patient(
-            firstName: firstNameController.text,
-            lastName: lastNameController.text,
-            username: usernameController.text,
-            email: emailController.text,
-            mobile: phoneController.text,
-            password: passwordController.text,
-            birthDate: _dateOfBirth,
-            gender: gender,
-            bloodType: null,
-            allergies: [],
-            medications: [],
-            conditions: []);
+           print("+signing up----------------------------------------------------------");
+        Doctor patient = new Doctor(
+          firstName: firstNameController.text,
+          lastName: lastNameController.text,
+          username: usernameController.text,
+          email: emailController.text,
+          mobile: phoneController.text,
+          password: passwordController.text,
+          birthDate: _dateOfBirth,
+          gender: gender,
+         
+          bio: bioController.text,
+          specialization: specializationController.text,           
+        );
         APIClient()
-            .getPatientService()
+            .getDoctorService()
             .signup(patient)
-            .then((PatientResponse patientResponse) {
-          if (patientResponse.success) {
+            .then((DoctorResponse doctorResponse) {
+          if (doctorResponse.success) {
             DialogManager.stopLoadingDialog(context);
             Navigator.of(context)
                 .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
@@ -170,7 +175,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                   },
                 ),
-              
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -227,6 +231,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       MatchValidator(errorText: 'passwords do not match')
                           .validateMatch(val, passwordController.text),
                 ),
+                buildTextField(
+                  title: 'Specialization',
+                  controller: specializationController,
+                  textInputType: TextInputType.text,
+                  validator: (String arg) {
+                    if (arg.length < 5)
+                      return 'specialization must be more than 5 charater';
+                    else
+                      return null;
+                  },
+                ),
+                buildTextField(
+                  title: 'Bio',
+                  controller: bioController,
+                  textInputType: TextInputType.text,
+                  validator: (String arg) {
+                    if (arg.length < 5)
+                      return 'bio must be more than 10 charater';
+                    else
+                      return null;
+                  },
+                ),
+               
+               
                 Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: buildGenderRadiolistTile()),

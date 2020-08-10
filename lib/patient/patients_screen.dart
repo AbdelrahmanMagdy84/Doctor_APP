@@ -1,43 +1,49 @@
 import 'package:doctor_app/drawer/main_drawer.dart';
-import 'package:doctor_app/models/patient.dart';
+import 'package:doctor_app/models/Responses/PatientsResponse.dart';
+import 'package:doctor_app/models/Patient.dart';
 import 'package:doctor_app/patient/patient_profile_screen.dart';
+import 'package:doctor_app/services/APIClient.dart';
+import 'package:doctor_app/utils/TokenStorage.dart';
 import 'package:flutter/material.dart';
 
-class FacilityScreen extends StatefulWidget {
-  static final routeName = 'facility route name';
+class PatientsScreen extends StatefulWidget {
+  static final routeName = 'patient route name';
 
   @override
-  _FacilityScreenState createState() => _FacilityScreenState();
+  _PatientsScreenState createState() => _PatientsScreenState();
 }
 
-class _FacilityScreenState extends State<FacilityScreen> {
+class _PatientsScreenState extends State<PatientsScreen> {
   String screenTitle;
   final usernameController = TextEditingController();
 
-  List<Patient> facilityList;
+    List<Patient> patientList;
   Future userFuture;
-  // @override
-  // didChangeDependencies() {
-  //   getUserToken();
-  //   super.didChangeDependencies();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    print("getting user token");
+    getUserToken();
+  }
 
-  // String _patientToken;
-  // void getUserToken() {
-  //   TokenStorage().getUserToken().then((value) async {
-  //     setState(() {
-  //       _patientToken = value;
-  //     });
-  //     userFuture = APIClient()
-  //         .getFacilityPatientService()
-  //         .getMedicalFacilities(_patientToken)
-  //         .then((MedicalFacilitiesResponse responseList) {
-  //       if (responseList.success) {
-  //         facilityList = responseList.medicalFacilities;
-  //       }
-  //     });
-  //   });
-  // }
+  String _doctorToken;
+  void getUserToken() {
+    TokenStorage().getUserToken().then((value) async {
+      setState(() {
+        _doctorToken = value;
+      });
+      userFuture = APIClient()
+          .getFacilityPatientService()
+          .getPatients(_doctorToken)
+          .then((PatientsResponse responseList) {
+        if (responseList.success) {
+          //  DialogManager.stopLoadingDialog(context);
+          patientList = responseList.patients;
+          print(responseList.patients.length);
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,18 +70,17 @@ class _FacilityScreenState extends State<FacilityScreen> {
                   ));
                   break;
                 case ConnectionState.done:
-                  return facilityList == null
+                  return patientList == null
                       ? Center(child: Text("no patients"))
                       : ListView.builder(
                           itemBuilder: (ctx, index) {
-                            // return item(
-                            //     facilityList[index].name,
-                            //     facilityList[index].username,
-                            //     facilityList[index].description,
-                            //     facilityList[index],
-                            //     context);
+                            return item(
+                                "${patientList[index].firstName} ${patientList[index].lastName}",
+                                patientList[index].username,
+                                patientList[index],
+                                context);
                           },
-                          itemCount: facilityList.length,
+                          itemCount: patientList.length,
                         );
                   break;
               }

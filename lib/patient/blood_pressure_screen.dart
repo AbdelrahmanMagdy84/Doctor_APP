@@ -2,6 +2,7 @@
 import 'package:doctor_app/items/pressure_item.dart';
 import 'package:doctor_app/models/BloodPressure.dart';
 import 'package:doctor_app/models/Responses/BloodPressureResponseList.dart';
+import 'package:doctor_app/models/Patient.dart';
 import 'package:doctor_app/services/APIClient.dart';
 import 'package:doctor_app/utils/TokenStorage.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,16 @@ class BloodPressureScreen extends StatefulWidget {
 class _BloodPressureScreenState extends State<BloodPressureScreen> {
   List<BloodPressure> pressureList;
   Future userFuture;
+    Patient patient;
+  @override
+  didChangeDependencies() {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, Object>;
+    patient = routeArgs['patient'];
+    super.didChangeDependencies();
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -22,15 +33,15 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
     getUserToken();
   }
 
-  String _patientToken;
+  String _doctorToken;
   void getUserToken() {
     TokenStorage().getUserToken().then((value) async {
       setState(() {
-        _patientToken = value;
+        _doctorToken = value;
       });
       userFuture = APIClient()
           .getBloodPressureService()
-          .getBloodPressureMeasure(_patientToken)
+          .getBloodPressureMeasure(patient.pid,_doctorToken)
           .then((BloodPressureResponseList responseList) {
         if (responseList.success) {
           //  DialogManager.stopLoadingDialog(context);

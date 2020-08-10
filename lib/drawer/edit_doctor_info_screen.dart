@@ -1,4 +1,6 @@
 import 'package:doctor_app/drawer/main_drawer.dart';
+import 'package:doctor_app/models/Doctor.dart';
+import 'package:doctor_app/models/Responses/DoctorResponse.dart';
 import 'package:doctor_app/models/Responses/PatientResponse.dart';
 import 'package:doctor_app/services/APIClient.dart';
 import 'package:doctor_app/utils/TokenStorage.dart';
@@ -51,16 +53,14 @@ class _EditPatientInfoState extends State<EditPatientInfo> {
   }
 
   void updatePatient() {
-    Patient newpatient;
-    newpatient.password = _newPasswordConroller.text;
-    newpatient.birthDate = newBirthDate;
-    newpatient.bloodType = bloodType;
+    Doctor newDoctor;
+   
     DialogManager.showLoadingDialog(context);
     APIClient()
-        .getPatientService()
-        .updatePatient(newpatient, _patientToken)
-        .then((PatientResponse patientResponse) {
-      if (patientResponse.success) {
+        .getDoctorService()
+        .updateDoctor(newDoctor, _patientToken)
+        .then((DoctorResponse doctorResponse) {
+      if (doctorResponse.success) {
         DialogManager.stopLoadingDialog(context);
         Navigator.of(context).pop();
       }

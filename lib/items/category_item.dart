@@ -55,19 +55,19 @@ class CategoryItem extends StatelessWidget {
   void selectCategory(BuildContext ctx) {
     switch (id) {
       case '1':
-        Navigator.of(ctx).pushNamed(BloodGlucoseScreen.routeName);
+        Navigator.of(ctx).pushNamed(BloodGlucoseScreen.routeName, arguments: {"patient": patient});
         break;
       case '2':
-        Navigator.of(ctx).pushNamed(BloodPressureScreen.routeName);
+        Navigator.of(ctx).pushNamed(BloodPressureScreen.routeName, arguments: {"patient": patient});
         break;
       case '3':
-        Navigator.of(ctx).pushNamed(PrescriptionScreen.routeName);
+        Navigator.of(ctx).pushNamed(PrescriptionScreen.routeName, arguments: {"patient": patient});
         break;
       case '4':
-        Navigator.of(ctx).pushNamed(RadiographScreen.routeName);
+        Navigator.of(ctx).pushNamed(RadiographScreen.routeName, arguments: {"patient": patient});
         break;
       case '5':
-        Navigator.of(ctx).pushNamed(LabTestScreen.routeName);
+        Navigator.of(ctx).pushNamed(LabTestScreen.routeName, arguments: {"patient": patient});
         break;
       case '6':
         Navigator.of(ctx).pushNamed(AllergiesScreen.routeName,

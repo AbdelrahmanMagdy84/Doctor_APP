@@ -1,6 +1,8 @@
 import 'package:doctor_app/items/glucose_item.dart';
 import 'package:doctor_app/models/BloodGlucose.dart';
 import 'package:doctor_app/models/Responses/BloodGlucoseResponseList.dart';
+import 'package:doctor_app/models/Patient.dart';
+
 import 'package:doctor_app/services/APIClient.dart';
 import 'package:doctor_app/utils/TokenStorage.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,15 @@ class BloodGlucoseScreen extends StatefulWidget {
 
 class _BloodGlucoseScreenState extends State<BloodGlucoseScreen> {
   List<BloodGlucose> glucoseList;
+  Patient patient;
+  @override
+  didChangeDependencies() {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, Object>;
+    patient = routeArgs['patient'];
+    super.didChangeDependencies();
+  }
+
 
   Future userFuture;
   @override
@@ -22,15 +33,15 @@ class _BloodGlucoseScreenState extends State<BloodGlucoseScreen> {
     getUserToken();
   }
 
-  String _patientToken;
+  String _doctorToken;
   void getUserToken() {
     TokenStorage().getUserToken().then((value) async {
       setState(() {
-        _patientToken = value;
+        _doctorToken = value;
       });
       userFuture = APIClient()
           .getBloodGlucoseService()
-          .getBloodGlucoseMeasure(_patientToken)
+          .getBloodGlucoseMeasure(patient.pid,_doctorToken)
           .then((BloodGlucoseResponseList responseList) {
         if (responseList.success) {
           glucoseList = responseList.bloodGlucose;
