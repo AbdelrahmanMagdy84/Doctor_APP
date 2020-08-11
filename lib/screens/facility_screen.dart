@@ -33,7 +33,7 @@ class _FacilityScreenState extends State<FacilityScreen> {
         _doctorToken = value;
       });
       userFuture = APIClient()
-          .getFacilityPatientService()
+          .getFacilityDoctorService()
           .getMedicalFacilities(_doctorToken)
           .then((MedicalFacilitiesResponse responseList) {
         if (responseList.success) {
@@ -163,7 +163,8 @@ Widget item(String name, String username, String type,
                                   child: Text(
                                     'Username: $username ',
                                     style: TextStyle(
-                                        fontSize: 14, fontWeight: FontWeight.bold),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 Divider(),
