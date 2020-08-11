@@ -1,6 +1,6 @@
 import 'package:doctor_app/patient/patients_screen.dart';
 import 'package:doctor_app/screens/facility_screen.dart';
-import 'package:doctor_app/patient/patient_profile_screen.dart';
+
 import '../drawer/main_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -30,27 +30,25 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: MainDrawer(),
       drawerScrimColor: Theme.of(context).primaryColor.withOpacity(0.5),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            TopContainer(),
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-                child: GridView.count(
-                  crossAxisCount: 1,
-                  childAspectRatio: 10 / 4,
-                  crossAxisSpacing: MediaQuery.of(context).size.width * 0.05,
-                  mainAxisSpacing: MediaQuery.of(context).size.height * 0.05,
-                  children: <Widget>[
-                    builditem(context, "Facilities", 1),
-                    builditem(context, "Patients", 2),
-                  ],
-                ),
+      body: Column(
+        children: <Widget>[
+          TopContainer(),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
+              child: GridView.count(
+                crossAxisCount: 1,
+                childAspectRatio: 10 / 4,
+                crossAxisSpacing: MediaQuery.of(context).size.width * 0.05,
+                mainAxisSpacing: MediaQuery.of(context).size.height * 0.05,
+                children: <Widget>[
+                  builditem(context, "Facilities", 1),
+                  builditem(context, "Patients", 2),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -63,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(15),
           child: Container(
             child: Center(
-              child: Expanded(
-                child: Container(
+              child: FittedBox(
+                                child: Container(
                   child: Text(
                     title,
                     style: TextStyle(

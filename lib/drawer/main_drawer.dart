@@ -54,10 +54,7 @@ class _MainDrawerState extends State<MainDrawer> {
           padding: EdgeInsets.only(top: mediaQuery.height * 0.07),
           child: Column(
             children: <Widget>[
-              // Container(
-              //   height: 1,
-              //   color: Theme.of(context).accentColor,
-              // ),
+              
               Container(
                 child: FutureBuilder(
                   future: userFuture,
@@ -68,11 +65,44 @@ class _MainDrawerState extends State<MainDrawer> {
                         break;
                       case ConnectionState.active:
                       case ConnectionState.waiting:
-                        return Center(
-                            child: Text(
-                          "Loading ",
-                          style: Theme.of(context).textTheme.title,
-                        ));
+                        return ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          child: Container(
+                            height: mediaQuery.height * 0.25,
+                            width: double.infinity,
+                            alignment: Alignment.centerLeft,
+                            
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  //margin: EdgeInsets.only(top:20),
+                                  child: Container(
+                                      margin:
+                                          EdgeInsets.only(top: 15, left: 15),
+                                      child: Text('')),
+                                ),
+                                Divider(),
+                                Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    alignment: Alignment.centerLeft,
+                                    child: Text('')),
+                                Divider(),
+                                Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    alignment: Alignment.centerLeft,
+                                    child:  Text('')),
+                                Divider(),
+                                Container(
+                                    margin:
+                                        EdgeInsets.only(left: 15, bottom: 15),
+                                    alignment: Alignment.centerLeft,
+                                    child: Text('')),
+                              ],
+                            ),
+                          ),
+                        );
                         break;
                       case ConnectionState.done:
                         return ClipRRect(
@@ -181,10 +211,14 @@ class _MainDrawerState extends State<MainDrawer> {
                 color: Theme.of(ctx).accentColor)),
         FittedBox(
           fit: BoxFit.scaleDown,
-          child: Text("$value",
-              style: TextStyle(
-                fontSize: 16,
-              )),
+          child: Row(
+            children: <Widget>[
+              Text("$value",
+                  style: TextStyle(
+                    fontSize: 16,
+                  )),
+            ],
+          ),
         ),
       ],
     ));

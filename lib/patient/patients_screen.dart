@@ -17,7 +17,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
   String screenTitle;
   final usernameController = TextEditingController();
 
-    List<Patient> patientList;
+  List<Patient> patientList;
   Future userFuture;
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
         if (responseList.success) {
           //  DialogManager.stopLoadingDialog(context);
           patientList = responseList.patients;
-          patientList=patientList.reversed.toList();
+          patientList = patientList.reversed.toList();
           print(responseList.patients.length);
         }
       });
@@ -104,53 +104,63 @@ Widget item(
             arguments: {"patient": patient},
           );
         },
-        child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            height: MediaQuery.of(context).size.height * 0.22,
-            child: Container(
-              child: Card(
-                elevation: 4,
+        child: Column(
+          children: <Widget>[
+            Container(
+                padding: EdgeInsets.only(top: 10),
+                height: MediaQuery.of(context).size.height * 0.15,
                 child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: constraints.maxWidth * 0.8,
-                        padding: EdgeInsets.only(top: 5, left: 5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: Text(
-                                'Name: $name',
-                                style: Theme.of(context).textTheme.title,
-                              ),
+                  child: Card(
+                    elevation: 4,
+                    child: Container(
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: constraints.maxWidth * 0.8,
+                            padding: EdgeInsets.only(top: 5, left: 10),
+                            child: Flex(
+                              direction: Axis.vertical,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Expanded(
+                                                                  child: Container(
+                                    padding: EdgeInsets.only(top: 20),
+                                    child: Text(
+                                      'Name: $name',
+                                      style: Theme.of(context).textTheme.title,
+                                    ),
+                                  ),
+                                ),
+                                Divider(),
+                                Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: Text(
+                                    'Username: $username ',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: Text(
-                                'Username: $username ',
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                          Container(
+                            child: IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Theme.of(context).errorColor,
+                                ),
+                                onPressed: () {}),
+                          ),
+                        ],
                       ),
-                      Container(
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).errorColor,
-                            ),
-                            onPressed: () {}),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            )),
+                )),
+          ],
+        ),
       );
     },
   );
