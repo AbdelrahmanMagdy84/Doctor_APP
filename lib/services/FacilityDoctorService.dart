@@ -17,7 +17,7 @@ class FacilityDoctorService {
 
   Future<MedicalFacilitiesResponse> getMedicalFacilities(String token) async {
     final http.Response response = await http.get(
-        "${APIClient.baseUrl}/$endPoint/medicalFacility",
+        "${APIClient.baseUrl}/$endPoint",
         headers: {"Content-Type": "application/json", "authorization": token});
     print(jsonDecode(response.body));
     if (response.statusCode == 200) {
