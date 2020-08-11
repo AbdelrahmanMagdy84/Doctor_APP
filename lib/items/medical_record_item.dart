@@ -119,55 +119,13 @@ class _MedicalRecordItemState extends State<MedicalRecordItem> {
                   ),
                 ],
               ),
+              Divider(),
               Row(
                 children: <Widget>[
-                  Expanded(
-                    child: Builder(builder: (BuildContext context) {
-                      return IconButton(
-                          icon: Icon(
-                            Icons.share,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: image.isEmpty
-                              ? null
-                              : () async {
-                                  var request = await HttpClient()
-                                      .getUrl(Uri.parse(image)); //image url
-                                  var response = await request.close();
-                                  Uint8List bytes =
-                                      await consolidateHttpClientResponseBytes(
-                                          response);
-                                }
-                          // widget.delete(widget.transaction.id),
-                          );
-                    }),
-                  ),
-                  Divider(),
-                  Expanded(
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.edit,
-                          color: Theme.of(context).accentColor,
-                        ),
-                        onPressed: () {}
-                        // widget.delete(widget.transaction.id),
-                        ),
-                  ),
-                  Expanded(
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.delete,
-                          color: Theme.of(context).errorColor,
-                        ),
-                        onPressed: () {}
-                        // widget.delete(widget.transaction.id),
-                        ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: Column(
                       children: <Widget>[
-                        Text(DateFormat.Hm().format(date)),
                         Text(DateFormat.yMMMd().format(date)),
                       ],
                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ShowImageScreen extends StatefulWidget {
-  static final String routeName = "route name";
+  static final String routeName = "show image route name";
 
   @override
   _ShowImageScreenState createState() => _ShowImageScreenState();

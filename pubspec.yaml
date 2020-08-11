@@ -24,6 +24,7 @@ dependencies:
   flutter_secure_storage: ^3.3.3
   path_provider: ^1.6.11
   http: ^0.12.2
+  dropdown_search: ^0.4.4
   
   flutter:
     sdk: flutter

@@ -11,6 +11,7 @@ class ConditionsScreen extends StatefulWidget {
 
 class _ConditionsScreenState extends State<ConditionsScreen> {
   List<String> conditions;
+
   @override
   didChangeDependencies() {
     final routeArgs =
@@ -18,17 +19,17 @@ class _ConditionsScreenState extends State<ConditionsScreen> {
     setState(() {
       if (routeArgs != null) {
         conditions = routeArgs['conditions'];
+        conditions = conditions.reversed.toList();
       }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title: Text('conditions'),
+        title: Text('Conditions'),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 10, right: 10, top: 20),
@@ -45,7 +46,6 @@ class _ConditionsScreenState extends State<ConditionsScreen> {
                   return buildItem(conditions[index]);
                 })),
       ),
-     
     );
   }
 
@@ -58,7 +58,7 @@ class _ConditionsScreenState extends State<ConditionsScreen> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Theme.of(context).primaryColor.withOpacity(.2),
+                    Theme.of(context).primaryColor.withOpacity(.7),
                     Theme.of(context).primaryColor
                   ], //here you can change the color
                   begin: Alignment.bottomCenter,
@@ -77,12 +77,18 @@ class _ConditionsScreenState extends State<ConditionsScreen> {
                         'Condition: ',
                         style: Theme.of(context).textTheme.title,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          '$condition',
-                          maxLines: 5,
-                          style: TextStyle(fontSize: 18),
+                      Divider(
+                        color: Theme.of(context).accentColor,
+                        thickness: 0.6,
+                      ),
+                      Center(
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            '$condition',
+                            maxLines: 5,
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
                         ),
                       ),
                     ],

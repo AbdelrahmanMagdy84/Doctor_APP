@@ -19,6 +19,7 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
     setState(() {
       if (routeArgs != null) {
         allergies = routeArgs['allergies'];
+        allergies=allergies.reversed.toList();
       }
     });
     super.didChangeDependencies();

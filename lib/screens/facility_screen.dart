@@ -40,6 +40,7 @@ class _FacilityScreenState extends State<FacilityScreen> {
           .then((MedicalFacilitiesResponse responseList) {
         if (responseList.success) {
           facilityList = responseList.medicalFacilities;
+          facilityList=facilityList.reversed.toList();
         }
       });
     });

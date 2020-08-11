@@ -17,6 +17,7 @@ class _FacilityProfileScreenState extends State<FacilityProfileScreen> {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, Object>;
     facility = routeArgs['facility'];
+    
     super.didChangeDependencies();
   }
 /**get doctor by username */

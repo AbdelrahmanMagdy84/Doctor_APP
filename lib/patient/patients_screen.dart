@@ -39,6 +39,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
         if (responseList.success) {
           //  DialogManager.stopLoadingDialog(context);
           patientList = responseList.patients;
+          patientList=patientList.reversed.toList();
           print(responseList.patients.length);
         }
       });

@@ -19,12 +19,13 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
     setState(() {
       if (routeArgs != null) {
         medications = routeArgs['medications'];
+        medications = medications.reversed.toList();
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    print(medications);
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
@@ -61,7 +62,7 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Theme.of(context).primaryColor.withOpacity(.2),
+                    Theme.of(context).primaryColor.withOpacity(.7),
                     Theme.of(context).primaryColor
                   ], //here you can change the color
                   begin: Alignment.bottomCenter,
@@ -80,12 +81,18 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
                         'Medication: ',
                         style: Theme.of(context).textTheme.title,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          '$medication',
-                          maxLines: 5,
-                          style: TextStyle(fontSize: 18),
+                      Divider(
+                        color: Theme.of(context).accentColor,
+                        thickness: 0.6,
+                      ),
+                      Center(
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            '$medication',
+                            maxLines: 5,
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
                         ),
                       ),
                     ],

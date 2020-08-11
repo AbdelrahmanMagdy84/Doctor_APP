@@ -3,6 +3,7 @@ import 'package:doctor_app/models/MedicalRecord.dart';
 import 'package:doctor_app/models/Responses/MedicalRecordsResponse.dart';
 import 'package:doctor_app/models/Patient.dart';
 import 'package:doctor_app/services/APIClient.dart';
+import 'package:doctor_app/static_data/three_dots.dart';
 import 'package:doctor_app/utils/TokenStorage.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +16,9 @@ class LabTestScreen extends StatefulWidget {
 class _LabTestScreenState extends State<LabTestScreen> {
   Future userFuture;
   List<MedicalRecord> medicalRecords;
+  List<MedicalRecord> orginList;
   Patient patient;
-   @override
+  @override
   didChangeDependencies() {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, Object>;
@@ -39,21 +41,36 @@ class _LabTestScreenState extends State<LabTestScreen> {
       });
       userFuture = APIClient()
           .getMedicalRecordService()
-          .getMedicalRecords(_doctorToken,patient.pid, "labTest")
+          .getMedicalRecords(_doctorToken, patient.pid, "labTest")
           .then((MedicalRecordsResponse responseList) {
         if (responseList.success) {
-          print(responseList.medicalRecord);
-          medicalRecords = responseList.medicalRecord;
+          orginList = responseList.medicalRecord;
+          medicalRecords = orginList.reversed.toList();
         }
       });
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
-      appBar: AppBar(title: Text("Lab Test")),
+      appBar: AppBar(
+        title: Text("Lab Test"),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: clickHandle,
+            itemBuilder: (BuildContext context) {
+              return list.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
+      ),
       body: Container(
         child: FutureBuilder(
           future: userFuture,
@@ -71,24 +88,53 @@ class _LabTestScreenState extends State<LabTestScreen> {
                 ));
                 break;
               case ConnectionState.done:
-                 if (medicalRecords == null) {
+                if (medicalRecords == null) {
                   return Center(
                     child: Text("Empty Press + to add"),
                   );
                 } else {
-                  medicalRecords=medicalRecords.reversed.toList();
-                return ListView.builder(
-                  itemBuilder: (ctx, index) {
-                    return MedicalRecordItem(medicalRecords[index]);
-                  },
-                  itemCount: medicalRecords.length,
-                );}
+                  return ListView.builder(
+                    itemBuilder: (ctx, index) {
+                      return MedicalRecordItem(medicalRecords[index]);
+                    },
+                    itemCount: medicalRecords.length,
+                  );
+                }
                 break;
             }
           },
         ),
       ),
-     
     );
+  }
+
+  void clickHandle(value) {
+    if (value == "Recent") {
+      setState(() {
+        medicalRecords = orginList.reversed.toList();
+      });
+    }
+    if (value == "History") {
+      setState(() {
+        medicalRecords.sort((a, b) => a.date.compareTo(b.date));
+      });
+    }
+    if (value == "entered by patient") {
+      print("---------------------------------");
+      setState(() {
+        medicalRecords = orginList
+            .where((element) => element.enteredBy == "PATIENT")
+            .toList();
+        print(medicalRecords.length);
+      });
+    }
+    if (value == "entered by clerk") {
+      setState(() {
+        medicalRecords = orginList
+            .where((element) => element.enteredBy != "PATIENT")
+            .toList();
+        print(medicalRecords.length);
+      });
+    }
   }
 }

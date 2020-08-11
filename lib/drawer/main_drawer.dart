@@ -27,15 +27,15 @@ class _MainDrawerState extends State<MainDrawer> {
     getUserToken();
   }
 
-  String _patientToken;
+  String _doctorToken;
   void getUserToken() {
     TokenStorage().getUserToken().then((value) async {
       setState(() {
-        _patientToken = value;
+        _doctorToken = value;
       });
       userFuture = APIClient()
           .getDoctorService()
-          .getDoctor(_patientToken)
+          .getDoctor(_doctorToken)
           .then((DoctorResponse response) {
         if (response.success) {
           //  DialogManager.stopLoadingDialog(context);

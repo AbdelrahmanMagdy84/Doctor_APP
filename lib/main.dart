@@ -12,6 +12,7 @@ import 'package:doctor_app/screens/login_screen.dart';
 import 'package:doctor_app/patient/prescription_screen.dart';
 import 'package:doctor_app/patient/radiograph_screen.dart';
 import 'package:doctor_app/screens/register_screen.dart';
+import 'package:doctor_app/screens/show_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'drawer/clerk_profile_screen.dart';
 import 'screens/facility_profile_screen.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         ClerkProfileScreen.routeName: (ctx) => ClerkProfileScreen(),
         FacilityProfileScreen.routeName: (ctx) => FacilityProfileScreen(),
         PatientsScreen.routeName:(ctx)=>PatientsScreen(),
+        ShowImageScreen.routeName:(ctx)=>ShowImageScreen(),
       },
     );
   }
