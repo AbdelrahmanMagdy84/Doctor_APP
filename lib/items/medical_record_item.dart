@@ -1,9 +1,5 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:doctor_app/models/MedicalRecord.dart';
 import 'package:doctor_app/screens/show_image_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -26,16 +22,23 @@ class _MedicalRecordItemState extends State<MedicalRecordItem> {
     String doctor;
     String clerk;
     String image;
+    print(newMedicalRecord.enteredBy);
     if (newMedicalRecord.enteredBy == "PATIENT") {
       facility = "facility";
       doctor = "doctor";
       clerk = "clerk";
     } else {
-      facility = newMedicalRecord.medicalFacility.name;
-      doctor =
-          "${newMedicalRecord.doctor.firstName} ${newMedicalRecord.doctor.lastName}";
-      clerk =
-          "${newMedicalRecord.clerk.firstName} ${newMedicalRecord.clerk.lastName}";
+      if (newMedicalRecord.medicalFacility != null) {
+        facility = newMedicalRecord.medicalFacility.name;
+      }
+      if (newMedicalRecord.clerk != null) {
+        clerk =
+            "${newMedicalRecord.clerk.firstName} ${newMedicalRecord.clerk.lastName}";
+      }
+      if (newMedicalRecord.doctor != null) {
+        doctor =
+            "${newMedicalRecord.doctor.firstName} ${newMedicalRecord.doctor.lastName}";
+      }
     }
     if (newMedicalRecord.type == "Radiograph") {
       image = newMedicalRecord.radiograph.url;
