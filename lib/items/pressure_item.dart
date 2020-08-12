@@ -136,15 +136,7 @@ class _PressureItemState extends State<PressureItem> {
                 ],
               ),
             ),
-            IconButton(
-                padding: EdgeInsets.only(left: 10),
-                icon: Icon(
-                  Icons.delete,
-                  color: Theme.of(ctx).errorColor,
-                ),
-                onPressed: () {}
-                // widget.delete(widget.transaction.id),
-                ),
+           
           ]),
           Container(
             padding: EdgeInsets.all(20),

@@ -1,3 +1,4 @@
+import 'package:doctor_app/drawer/main_drawer.dart';
 import 'package:doctor_app/items/medical_record_item.dart';
 import 'package:doctor_app/models/MedicalRecord.dart';
 import 'package:doctor_app/models/Responses/MedicalRecordsResponse.dart';
@@ -56,6 +57,7 @@ class _RadiographScreenState extends State<RadiographScreen> {
   Widget build(BuildContext context) {
     
     return Scaffold(
+       drawer: MainDrawer(),
       appBar: AppBar(
         title: Text("Radiograph"),
         actions: <Widget>[

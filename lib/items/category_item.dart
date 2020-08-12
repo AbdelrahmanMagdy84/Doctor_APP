@@ -17,23 +17,24 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('---------------------------');
-    print(patient);
-    return LayoutBuilder(
-      builder: (ctx, constraints) {
-        return InkWell(
+    
+     return InkWell(
           onTap: () => selectCategory(context),
           borderRadius: BorderRadius.circular(15),
           child: Container(
-            child: Center(
-              child: Expanded(
-                child: Container(
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.title,
+            alignment:Alignment.center,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                     alignment:Alignment.center,
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.title,
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -48,8 +49,6 @@ class CategoryItem extends StatelessWidget {
             ),
           ),
         );
-      },
-    );
   }
 
   void selectCategory(BuildContext ctx) {

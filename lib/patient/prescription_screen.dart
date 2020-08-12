@@ -1,3 +1,4 @@
+import 'package:doctor_app/drawer/main_drawer.dart';
 import 'package:doctor_app/items/medical_record_item.dart';
 import 'package:doctor_app/models/Doctor.dart';
 import 'package:doctor_app/models/MedicalRecord.dart';
@@ -7,7 +8,7 @@ import 'package:doctor_app/models/Patient.dart';
 import 'package:doctor_app/services/APIClient.dart';
 import 'package:doctor_app/static_data/three_dots.dart';
 import 'package:doctor_app/utils/TokenStorage.dart';
-import 'package:dropdown_search/dropdown_search.dart';
+
 import 'package:flutter/material.dart';
 
 class PrescriptionScreen extends StatefulWidget {
@@ -63,41 +64,38 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
       });
     });
   }
-void clickHandle(value) {
-      if (value == "Recent") {
-        setState(() {
-          medicalRecords = orginList.reversed.toList();
-        });
-      }
-      else if(value == "History") {
-        setState(() {
-          medicalRecords.sort((a, b) => a.date.compareTo(b.date));
-        });
-      }
-      else if (value == "entered by patient") {
-        print("---------------------------------");
-        setState(() {
-          medicalRecords = orginList
-              .where((element) => element.enteredBy == "PATIENT")
-              .toList();
-          print(medicalRecords.length);
-        });
-      }
-      else if (value == "entered by clerk") {
-        setState(() {
-          medicalRecords = orginList
-              .where((element) => element.enteredBy != "PATIENT")
-              .toList();
-          print(medicalRecords.length);
-        });
-      }
+
+  void clickHandle(value) {
+    if (value == "Recent") {
+      setState(() {
+        medicalRecords = orginList.reversed.toList();
+      });
+    } else if (value == "History") {
+      setState(() {
+        medicalRecords.sort((a, b) => a.date.compareTo(b.date));
+      });
+    } else if (value == "entered by patient") {
+      print("---------------------------------");
+      setState(() {
+        medicalRecords = orginList
+            .where((element) => element.enteredBy == "PATIENT")
+            .toList();
+        print(medicalRecords.length);
+      });
+    } else if (value == "entered by clerk") {
+      setState(() {
+        medicalRecords = orginList
+            .where((element) => element.enteredBy != "PATIENT")
+            .toList();
+        print(medicalRecords.length);
+      });
     }
+  }
 
   @override
   Widget build(BuildContext context) {
-    
-    
     return Scaffold(
+      drawer: MainDrawer(),
       appBar: AppBar(
         title: Text("Prescription"),
         actions: <Widget>[
