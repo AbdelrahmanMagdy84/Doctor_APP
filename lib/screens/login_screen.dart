@@ -16,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-
+bool _obscureText = true;
   Widget buildTextField(String title, TextEditingController controller,
       TextInputType textInputType) {
     return Container(
@@ -54,8 +54,14 @@ class _LoginScreenState extends State<LoginScreen> {
   void createNewAcount(BuildContext ctx) {
     Navigator.of(ctx).pushReplacementNamed(RegisterScreen.routeName);
   }
+  
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
-  @override
+@override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Login')),
@@ -70,10 +76,32 @@ class _LoginScreenState extends State<LoginScreen> {
               _usernameController,
               TextInputType.text,
             ),
-            buildTextField(
-              'Password',
-              _passwordController,
-              TextInputType.text,
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                      ),
+                      controller: _passwordController,
+                      keyboardType: TextInputType.text,
+                      obscureText: _obscureText,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 30, right: 10),
+                  child: IconButton(
+                    color: Theme.of(context).primaryColor,
+                    onPressed: _toggle,
+                    icon: (Icon(_obscureText
+                        ? Icons.visibility_off
+                        : Icons.visibility)),
+                  ),
+                ),
+              ],
             ),
             Container(
                 padding: EdgeInsets.only(top: 15, bottom: 10),
