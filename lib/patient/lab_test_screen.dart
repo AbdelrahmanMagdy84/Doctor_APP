@@ -46,7 +46,7 @@ class _LabTestScreenState extends State<LabTestScreen> {
           .then((MedicalRecordsResponse responseList) {
         if (responseList.success) {
           orginList = responseList.medicalRecord;
-          medicalRecords = orginList.reversed.toList();
+          medicalRecords = List.from(orginList.reversed.toList());
         }
       });
     });
@@ -54,7 +54,6 @@ class _LabTestScreenState extends State<LabTestScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
@@ -111,28 +110,28 @@ class _LabTestScreenState extends State<LabTestScreen> {
   }
 
   void clickHandle(value) {
+    List<MedicalRecord> copyList = List.from(orginList);
     if (value == "Recent") {
       setState(() {
-        medicalRecords = orginList.reversed.toList();
+        medicalRecords = copyList.reversed.toList();
       });
-    }
-    if (value == "History") {
+    } else if (value == "History") {
       setState(() {
+        medicalRecords = copyList.toList();
         medicalRecords.sort((a, b) => a.date.compareTo(b.date));
       });
-    }
-    if (value == "entered by patient") {
+    } else if (value == "entered by patient") {
       print("---------------------------------");
       setState(() {
-        medicalRecords = orginList
+        medicalRecords = copyList
             .where((element) => element.enteredBy == "PATIENT")
             .toList();
         print(medicalRecords.length);
       });
-    }
-    if (value == "entered by clerk") {
+    } else if (value == "entered by clerk") {
       setState(() {
-        medicalRecords = orginList
+        medicalRecords = copyList.reversed.toList();
+        medicalRecords = copyList
             .where((element) => element.enteredBy != "PATIENT")
             .toList();
         print(medicalRecords.length);
