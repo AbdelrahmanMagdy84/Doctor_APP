@@ -5,6 +5,7 @@ import 'package:doctor_app/services/APIClient.dart';
 import 'package:doctor_app/static_data/medical_categories_data.dart';
 import 'package:doctor_app/utils/TokenStorage.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../drawer/main_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -127,6 +128,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
   }
 
   Widget buildPatientProfile(Patient patientForProfile) {
+     Future<void> _launched;
     return Column(
       children: <Widget>[
         ClipRRect(
@@ -178,12 +180,61 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                 Divider(
                   thickness: 1,
                 ),
+                Row(
+              children: [
+                Expanded(
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.email,
+                      color: Colors.redAccent,
+                    ),
+                      onPressed: () => setState(() {
+                      _launched = _createEmail(patient.email);
+                    }),
+                  ),
+                ),
+                Expanded(
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.call,
+                      color: Colors.green,
+                    ),
+                    onPressed: () => setState(() {
+                      _launched = _makePhoneCall('tel:${patient.mobile}');
+                    }),
+                  ),
+                ),
+                FutureBuilder<void>(future: _launched, builder: _launchStatus),
+              ],
+            )
               ],
             ),
           ),
         ),
       ],
     );
+  }
+  Widget _launchStatus(BuildContext context, AsyncSnapshot<void> snapshot) {
+    if (snapshot.hasError) {
+      return Text('Error: ${snapshot.error}');
+    } else {
+      return const Text('');
+    }
+  }
+  Future<void> _createEmail(String email) async {
+    if (await canLaunch("mailto:$email?subject=Amun MR")) {
+      await launch("mailto:$email?subject=Amun MR");
+    } else {
+      throw 'Could not Email';
+    }
+  }
+
+  Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Widget buildMyText(BuildContext ctx, String title, String value) {

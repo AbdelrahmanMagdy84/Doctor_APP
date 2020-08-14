@@ -1,6 +1,6 @@
 import 'package:doctor_app/patient/allergies_screen.dart';
 import 'package:doctor_app/patient/condtions_screen.dart';
-import 'package:doctor_app/drawer/edit_doctor_info_screen.dart';
+
 import 'package:doctor_app/patient/patients_screen.dart';
 import 'package:doctor_app/screens/facility_screen.dart';
 import 'package:doctor_app/patient/blood_pressure_screen.dart';
@@ -14,12 +14,10 @@ import 'package:doctor_app/patient/radiograph_screen.dart';
 import 'package:doctor_app/screens/register_screen.dart';
 import 'package:doctor_app/screens/show_image_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'drawer/clerk_profile_screen.dart';
 import 'screens/facility_profile_screen.dart';
 import 'patient/medications_screen.dart';
-
-
-
 
 void main() => runApp(MyApp());
 
@@ -27,7 +25,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
           primaryColor: Colors.black,
@@ -53,14 +55,12 @@ class MyApp extends StatelessWidget {
         RadiographScreen.routeName: (ctx) => RadiographScreen(),
         LabTestScreen.routeName: (ctx) => LabTestScreen(),
         FacilityScreen.routeName: (ctx) => FacilityScreen(),
-        EditPatientInfo.routeName: (ctx) => EditPatientInfo(),
+        
         MedicationsScreen.routeName: (ctx) => MedicationsScreen(),
         ClerkProfileScreen.routeName: (ctx) => ClerkProfileScreen(),
         FacilityProfileScreen.routeName: (ctx) => FacilityProfileScreen(),
-        PatientsScreen.routeName:(ctx)=>PatientsScreen(),
-        ShowImageScreen.routeName:(ctx)=>ShowImageScreen(),
-
-      
+        PatientsScreen.routeName: (ctx) => PatientsScreen(),
+        ShowImageScreen.routeName: (ctx) => ShowImageScreen(),
       },
     );
   }

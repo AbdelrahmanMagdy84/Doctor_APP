@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             child: Center(
               child: FittedBox(
-                                child: Container(
+                child: Container(
                   child: Text(
                     title,
                     style: TextStyle(

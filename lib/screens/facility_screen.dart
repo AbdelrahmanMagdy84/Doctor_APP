@@ -69,7 +69,7 @@ class _FacilityScreenState extends State<FacilityScreen> {
                   ));
                   break;
                 case ConnectionState.done:
-                  return facilityList == null
+                  return facilityList == []
                       ? Center(child: Text("no facilities"))
                       : ListView.builder(
                           itemBuilder: (ctx, index) {
@@ -181,14 +181,7 @@ Widget item(String name, String username, String type,
                               ],
                             ),
                           ),
-                          Container(
-                            child: IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Theme.of(context).errorColor,
-                                ),
-                                onPressed: () {}),
-                          ),
+                        
                         ],
                       ),
                     ),

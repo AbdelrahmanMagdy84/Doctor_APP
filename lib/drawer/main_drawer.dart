@@ -1,4 +1,4 @@
-import 'package:doctor_app/drawer/edit_doctor_info_screen.dart';
+
 import 'package:doctor_app/models/Doctor.dart';
 import 'package:doctor_app/models/Responses/DoctorResponse.dart';
 
@@ -161,12 +161,9 @@ class _MainDrawerState extends State<MainDrawer> {
                     context, HomeScreen.routeName, (r) => false);
               }),
             
-              buildListTile(context, 'Edit information', () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, HomeScreen.routeName, (r) => false);
-                Navigator.pushNamed(context, EditPatientInfo.routeName,
-                    arguments: {'information': doctor});
-              }),
+              
+
+
               Container(
                 color: Theme.of(context).accentColor,
                 child: buildListTile(context, 'Logout', () {

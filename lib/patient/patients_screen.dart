@@ -71,7 +71,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
                   ));
                   break;
                 case ConnectionState.done:
-                  return patientList == null
+                  return patientList == []
                       ? Center(child: Text("no patients"))
                       : ListView.builder(
                           itemBuilder: (ctx, index) {
@@ -146,14 +146,7 @@ Widget item(
                               ],
                             ),
                           ),
-                          Container(
-                            child: IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Theme.of(context).errorColor,
-                                ),
-                                onPressed: () {}),
-                          ),
+                          
                         ],
                       ),
                     ),
