@@ -17,16 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-              color: Theme.of(context).accentColor,
-              icon: Icon(
-                Icons.camera_alt,
-              ),
-              onPressed: () {
-                //   Navigator.of(context).pushNamed(ScannerScreen.routeName);
-              })
-        ],
+        
       ),
       drawer: MainDrawer(),
       drawerScrimColor: Theme.of(context).primaryColor.withOpacity(0.5),

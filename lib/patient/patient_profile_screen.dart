@@ -57,16 +57,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
       appBar: AppBar(
         title: Text("Patient Profile"),
         elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-              color: Theme.of(context).accentColor,
-              icon: Icon(
-                Icons.camera_alt,
-              ),
-              onPressed: () {
-                //   Navigator.of(context).pushNamed(ScannerScreen.routeName);
-              })
-        ],
+      
       ),
       drawer: MainDrawer(),
       drawerScrimColor: Theme.of(context).primaryColor.withOpacity(0.5),
@@ -205,7 +196,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                   ),
                 ),
                 FutureBuilder<void>(future: _launched, builder: _launchStatus),
-                Divider(),
+               
               ],
             )
               ],
