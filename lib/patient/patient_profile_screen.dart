@@ -205,6 +205,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                   ),
                 ),
                 FutureBuilder<void>(future: _launched, builder: _launchStatus),
+                Divider(),
               ],
             )
               ],

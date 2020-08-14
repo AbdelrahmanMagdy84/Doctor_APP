@@ -156,16 +156,20 @@ class _MainDrawerState extends State<MainDrawer> {
               SizedBox(
                 height: 10,
               ),
-              buildListTile(context, 'Home', () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, HomeScreen.routeName, (r) => false);
-              }),
+              Container(
+                  padding: EdgeInsets.only(top:20),
+                child: buildListTile(context, 'Home', () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, HomeScreen.routeName, (r) => false);
+                }),
+              ),
             
               
 
 
               Container(
-                color: Theme.of(context).accentColor,
+                padding: EdgeInsets.only(top:50),
+               // color: Theme.of(context).accentColor,
                 child: buildListTile(context, 'Logout', () {
                   Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
                 }),
