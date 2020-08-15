@@ -41,7 +41,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
       });
       userFuture = APIClient()
           .getPatientService()
-          .getPatient(patient.pid,_doctorToken)
+          .getPatient(patient.pid, _doctorToken)
           .then((PatientResponse response) {
         if (response.success) {
           //  DialogManager.stopLoadingDialog(context);
@@ -57,7 +57,6 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
       appBar: AppBar(
         title: Text("Patient Profile"),
         elevation: 0.0,
-      
       ),
       drawer: MainDrawer(),
       drawerScrimColor: Theme.of(context).primaryColor.withOpacity(0.5),
@@ -119,7 +118,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
   }
 
   Widget buildPatientProfile(Patient patientForProfile) {
-     Future<void> _launched;
+    Future<void> _launched;
     return Column(
       children: <Widget>[
         ClipRRect(
@@ -172,33 +171,33 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
                   thickness: 1,
                 ),
                 Row(
-              children: [
-                Expanded(
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.email,
-                      color: Colors.redAccent,
+                  children: [
+                    Expanded(
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.email,
+                          color: Colors.redAccent,
+                        ),
+                        onPressed: () => setState(() {
+                          _launched = _createEmail(patient.email);
+                        }),
+                      ),
                     ),
-                      onPressed: () => setState(() {
-                      _launched = _createEmail(patient.email);
-                    }),
-                  ),
-                ),
-                Expanded(
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.call,
-                      color: Colors.green,
+                    Expanded(
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.call,
+                          color: Colors.green,
+                        ),
+                        onPressed: () => setState(() {
+                          _launched = _makePhoneCall('tel:${patient.mobile}');
+                        }),
+                      ),
                     ),
-                    onPressed: () => setState(() {
-                      _launched = _makePhoneCall('tel:${patient.mobile}');
-                    }),
-                  ),
-                ),
-                FutureBuilder<void>(future: _launched, builder: _launchStatus),
-               
-              ],
-            )
+                    FutureBuilder<void>(
+                        future: _launched, builder: _launchStatus),
+                  ],
+                )
               ],
             ),
           ),
@@ -206,6 +205,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
       ],
     );
   }
+
   Widget _launchStatus(BuildContext context, AsyncSnapshot<void> snapshot) {
     if (snapshot.hasError) {
       return Text('Error: ${snapshot.error}');
@@ -213,6 +213,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen> {
       return const Text('');
     }
   }
+
   Future<void> _createEmail(String email) async {
     if (await canLaunch("mailto:$email?subject=Amun MR")) {
       await launch("mailto:$email?subject=Amun MR");
