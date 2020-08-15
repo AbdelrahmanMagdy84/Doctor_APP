@@ -184,8 +184,9 @@ class _FacilityProfileScreenState extends State<FacilityProfileScreen> {
                 fontWeight: FontWeight.w900,
                 fontSize: 16,
                 color: Theme.of(ctx).accentColor)),
-        Text(value == null ? "" : "$value",
+        Text( "$value",
             style: TextStyle(
+              color:Colors.white,
               fontSize: 16,
             )),
       ],
