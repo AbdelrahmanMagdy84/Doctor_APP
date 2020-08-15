@@ -1,5 +1,5 @@
 class Clerk {
-  int id;
+  String id;
   String firstName;
   String lastName;
   String email;
@@ -21,13 +21,13 @@ class Clerk {
 
   factory Clerk.fromJson(Map<String, dynamic> json) {
     return Clerk(
-      id: json["_id"],
-      firstName: json["firstName"],
-      lastName: json["lastName"],
-      email: json["email"],
-      username: json["username"],
-      mobile: json["mobile"],
-      gender: json["gender"],
-    );
+        id: json["_id"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        email: json["email"],
+        username: json["username"],
+        mobile: json["mobile"],
+        gender: json["gender"],
+        role: json['role']);
   }
 }
