@@ -3,6 +3,10 @@
 A new Flutter project.
 
 ## Getting Started
+ 
+registeration:
+ 
+![register](https://user-images.githubusercontent.com/45487306/151828434-80598a59-91ec-4ef9-aecd-03b7b78f11bc.gif)
 
 This project is a starting point for a Flutter application.
 
